@@ -1,0 +1,7 @@
+name,sector,lat,lon,location,website,logo,notes
+"Example Investor","Investor",40.7128,-74.0060,"New York City","","","Replace with live Seraphim investor records."
+"Example Institute","Institute",42.4534,-76.4735,"Ithaca","","","University/institute layer example."
+"Example Startup","Startup",43.1566,-77.6088,"Rochester","","","Startup/company layer example."
+"Example Prime","Prime",42.6526,-73.7562,"Albany","","","Prime or major company layer example."
+"Example Infrastructure","Infrastructure",43.0481,-76.1474,"Syracuse","","","Infrastructure/testbed layer example."
+"Example Government Lab","Government",41.7004,-73.9210,"Hudson Valley","","","Government/national lab layer example."

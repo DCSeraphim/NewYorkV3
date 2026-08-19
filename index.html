@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#010613" />
+  <meta name="msapplication-TileColor" content="#da532c" />
+  <meta name="description" content="Seraphim New York ecosystem map with sector layers, editable CSV data and optional WebAssembly validation." />
+  <meta property="og:site_name" content="Seraphim Space" />
+  <meta property="og:title" content="Seraphim New York Ecosystem Map" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="assets/seraphim-logo.png" />
+  <title>Seraphim New York Ecosystem Map</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png" />
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIINfQ19CSf7AEOxLL5cGchBSoJePuvmZsE=" crossorigin="" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-frame">
+    <aside class="control-panel" aria-label="Map controls">
+      <header class="brand-header">
+        <a class="logo-holder" href="#" aria-label="Seraphim logo placeholder">
+          <img id="seraphim-logo" src="assets/seraphim-logo.png" alt="Seraphim Space" onerror="this.style.display='none'; document.getElementById('logo-placeholder').style.display='grid';" />
+          <span id="logo-placeholder">SERAPHIM<br />LOGO</span>
+        </a>
+        <div class="brand-text">
+          <span class="eyebrow">Seraphim Space</span>
+          <h1>New York Ecosystem Map</h1>
+          <p>Focused map interface for investors, institutes, startups, primes, infrastructure and government nodes.</p>
+        </div>
+      </header>
+
+      <section class="metric-strip" aria-label="Record summary">
+        <div><span>Visible</span><strong id="visible-count">0</strong></div>
+        <div><span>Total</span><strong id="total-count">0</strong></div>
+        <div><span>Engine</span><strong id="engine-status">JS</strong></div>
+      </section>
+
+      <section class="panel-card">
+        <div class="panel-heading">
+          <h2>Sector layers</h2>
+          <button id="toggle-all" class="text-action" type="button">Hide all</button>
+        </div>
+        <div id="sector-filters" class="layer-list"></div>
+      </section>
+
+      <section class="panel-card">
+        <h2>Search</h2>
+        <input id="search-input" class="field" type="search" placeholder="Search company, city, website or notes" />
+      </section>
+
+      <section class="panel-card add-company-card">
+        <div class="panel-heading">
+          <h2>Add company</h2>
+          <span class="microcopy">Export CSV to keep edits</span>
+        </div>
+        <form id="company-form" class="company-form" autocomplete="off">
+          <label>Company / organisation<input id="name" class="field" required /></label>
+          <label>Sector<select id="sector" class="field" required></select></label>
+          <div class="two-col">
+            <label>Latitude<input id="lat" class="field" type="number" step="any" required /></label>
+            <label>Longitude<input id="lon" class="field" type="number" step="any" required /></label>
+          </div>
+          <label>Location<input id="location" class="field" placeholder="City, campus, facility or office" /></label>
+          <label>Website<input id="website" class="field" type="url" placeholder="https://" /></label>
+          <label>Logo path<input id="logo" class="field" placeholder="assets/company-logos/company.png" /></label>
+          <label>Notes<textarea id="notes" class="field" rows="3" placeholder="Why this node matters, buyer relevance, facility note, etc."></textarea></label>
+          <div class="action-row">
+            <button class="primary-action" type="submit"><span>Add Marker</span></button>
+            <button id="clear-form" class="secondary-action" type="button">Clear</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="panel-card">
+        <h2>Data controls</h2>
+        <div class="action-row wrap">
+          <label class="secondary-action import-control">Import CSV<input id="csv-import" type="file" accept=".csv" hidden /></label>
+          <button id="export-csv" class="secondary-action" type="button">Export CSV</button>
+          <button id="validate-data" class="secondary-action" type="button">Validate</button>
+        </div>
+        <p class="data-note">Replace <code>data/companies.csv</code> with your exported file when committing to GitHub.</p>
+      </section>
+    </aside>
+
+    <main class="map-area">
+      <div class="floating-row">
+        <article id="insight-card" class="floating-card">Loading ecosystem records...</article>
+        <article id="selected-card" class="floating-card selected-card">Select a marker to view details.</article>
+      </div>
+      <div id="map" aria-label="Interactive New York ecosystem map"></div>
+    </main>
+  </div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="src/wasm/company_engine.loader.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
